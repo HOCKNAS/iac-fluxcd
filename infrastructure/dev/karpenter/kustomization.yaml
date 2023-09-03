@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
 - helm-repositories.yaml
 - helm-release.yaml
-- provisioner.yaml
+#- provisioner.yaml
