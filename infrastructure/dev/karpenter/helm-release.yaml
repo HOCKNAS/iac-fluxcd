@@ -1,0 +1,39 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: karpenter
+  namespace: karpenter
+spec:
+  releaseName: karpenter
+  chart:
+    spec:
+      chart: karpenter
+      version: "v0.29.2"
+      sourceRef:
+        kind: HelmRepository
+        name: karpenter
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  interval: 1m
+  values:
+    settings:
+      aws:
+        defaultInstanceProfile: "eks-dev-1-karpenter"
+        clusterName: "eks-dev-1"
+        clusterEndpoint: "https://F59E46A23C8F62145BDB70D33CE8B0A3.gr7.us-east-1.eks.amazonaws.com"
+        interruptionQueueName: "eks-dev-1"
+    serviceAccount:
+      annotations:
+        "eks.amazonaws.com/role-arn": "arn:aws:iam::408364916062:role/KarpenterIRSA-eks-dev-1"
+    controller:
+      resources:
+        requests:
+          cpu: "1"
+          memory: "1Gi"
+        limits:
+          cpu: "1"
+          memory: "1Gi"
