@@ -4,4 +4,4 @@ resources:
 - namespace.yaml
 - helm-repositories.yaml
 - helm-release.yaml
-#- provisioner.yaml
+- provisioner.yaml
